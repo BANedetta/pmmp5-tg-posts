@@ -1,0 +1,17 @@
+name: English (US)
+
+# In-game messages
+add_admin.usage: "Usage: /taa <id: int>"
+add_admin.already_admin: This ID is already an administrator.
+add_admin.success: This ID has been successfully added to the list of TG platform administrators.
+
+remove_admin.usage: "Usage: /tar <id: int>"
+remove_admin.not_admin: This ID was not found in the list of administrators.
+remove_admin.success: This ID has been successfully removed from the list of TG platform administrators.
+
+
+# Telegram messages (Callback buttons)
+tg.ban.confirmed: ✅ You have confirmed the ban of the player {banned}.
+tg.ban.not_confirmed: ❌ You have rejected the ban of the player {banned}.
+tg.ban.not_admin: ⚠️ These buttons are not for you!
+tg.ban.post_not_found: ✨ It seems that this post has already been deleted from the database.

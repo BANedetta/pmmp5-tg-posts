@@ -1,0 +1,15 @@
+name: BANedetta-tg-posts
+version: 1-dev
+api: 5.0.0
+main: Taskov1ch\BANedetta_TG\TgPosts
+depend: BANedetta
+
+permissions:
+  banedetta.tg.add_admin:
+    default: op
+
+  banedetta.tg.remove_admin:
+    default: op
+
+  banedetta.tg.admins:
+    default: op

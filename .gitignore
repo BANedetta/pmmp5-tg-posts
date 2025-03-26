@@ -1,0 +1,7 @@
+pmmp5-tg.code-workspace
+vendor
+poggit
+.php-cs-fixer.cache
+autoload.php
+virions
+test.php

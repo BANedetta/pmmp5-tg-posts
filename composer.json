@@ -1,0 +1,8 @@
+{
+	"require": {
+		"irazasyed/telegram-bot-sdk": "^3.15"
+	},
+	"require-dev": {
+		"friendsofphp/php-cs-fixer": "^3.72"
+	}
+}

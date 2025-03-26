@@ -1,0 +1,35 @@
+waiting:
+  media:
+    type: photo # animation, audio, document, photo, video, none (for text only)
+    url: https://i.ibb.co/PscR4H3B/64-20250325095312.jpg # URL
+  post:
+    parse_mode: Markdown # https://docs.python-telegram-bot.org/en/v12.6.1/telegram.parsemode.html
+    text: |
+      🚨 Player **{banned}** has been banned by **{by}**.
+      ⚠️ Reason: __{reason}__.
+      📅 Evidence is expected by {time} (UTC+6), otherwise, your account will be banned!
+  buttons:
+    confirm: ✅ Confirm
+    not_confirm: ❌ Reject
+
+confirmed:
+  media:
+    type: photo
+    url: https://i.ibb.co/QzDJN5x/65-20250325095348.jpg
+  post:
+    parse_mode: Markdown
+    text: |
+      ✅ Player **{banned}** has been banned by **{by}**.
+      📋 Reason: __{reason}__.
+      ✔️ Confirmed!
+
+not_confirmed:
+  media:
+    type: photo
+    url: https://i.ibb.co/S7sSB53p/66-20250325095332.jpg
+  post:
+    parse_mode: Markdown
+    text: |
+      ❌ Player **{banned}** has been banned by **{by}**.
+      ⚠️ Reason: __{reason}__.
+      ❗ Not confirmed! **{banned}** has been unbanned, and **{by}** has been banned.
