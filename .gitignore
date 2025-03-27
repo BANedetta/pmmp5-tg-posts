@@ -5,3 +5,4 @@ poggit
 autoload.php
 virions
 test.php
+.thread_autoload_injector.py

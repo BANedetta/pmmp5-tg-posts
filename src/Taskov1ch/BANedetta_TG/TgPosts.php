@@ -10,6 +10,7 @@ use Symfony\Component\Filesystem\Path;
 use Taskov1ch\BANedetta\BANedetta;
 use Taskov1ch\BANedetta\posts\PostPlugin;
 use Taskov1ch\BANedetta_TG\commands\AddAdminCommand;
+use Taskov1ch\BANedetta_TG\commands\AdminsListCommand;
 use Taskov1ch\BANedetta_TG\commands\RemoveAdminCommand;
 use Taskov1ch\BANedetta_TG\providers\libasynql;
 use Taskov1ch\BANedetta_TG\requests\AsyncRequests;
@@ -90,7 +91,8 @@ class TgPosts extends PostPlugin
 	{
 		$this->getServer()->getCommandMap()->registerAll("BANedetta_TG", [
 			new AddAdminCommand($this, "taa", "Add admin command", "banedetta.tg.add_admin"),
-			new RemoveAdminCommand($this, "tar", "Remove admin command", "banedetta.tg.remove_admin")
+			new RemoveAdminCommand($this, "tar", "Remove admin command", "banedetta.tg.remove_admin"),
+			new AdminsListCommand($this, "tal", "Admins list command", "banedetta.tg.admins")
 		]);
 	}
 
@@ -110,6 +112,11 @@ class TgPosts extends PostPlugin
 	public function getTranslator(): Translator
 	{
 		return $this->translator;
+	}
+
+	public function getAdmins(): array
+	{
+		return $this->admins;
 	}
 
 	public function isAdmin(int $id): bool

@@ -9,6 +9,8 @@ remove_admin.usage: "Использование: /tar <id: int>"
 remove_admin.not_admin: Данный ID не найден в списке администраторов.
 remove_admin.success: Данный ID успешно удален из списка администраторов платформы TG.
 
+admins_list: "Список администраторов платформы TG: "
+
 
 # Сообщения для Telegram (Callback кнопки)
 tg.ban.confirmed: ✅ Вы подвердили бан игрока {banned}.
