@@ -23,8 +23,8 @@ class AsyncRequests
 		$keyboard = [
 			"inline_keyboard" => [
 				[
-					["text" => $buttons["confirm"], "callback_data" => "banadetta_confirm"],
-					["text" => $buttons["not_confirm"], "callback_data" => "banadetta_reject"]
+					["text" => $buttons["confirm"], "callback_data" => "banedetta_confirm"],
+					["text" => $buttons["not_confirm"], "callback_data" => "banedetta_reject"]
 				]
 			]
 		];

@@ -2,6 +2,7 @@
 
 namespace Taskov1ch\BANedetta_TG;
 
+use Exception;
 use IvanCraft623\languages\Language;
 use IvanCraft623\languages\Translator;
 use pocketmine\utils\Config;
@@ -165,9 +166,17 @@ class TgPosts extends PostPlugin
 	public function removePost(string $banned): void
 	{
 		$this->db->getDataByBanned($banned)->onCompletion(
-			fn (array $data) => !empty($data) &&
-				$this->requests->removePost($data["post_id"]) &&
-				$this->db->removePostByBanned($data["banned"]),
+			function (array $data) {
+				if (!empty($data)) {
+					try {
+						$this->requests->removePost($data["post_id"]);
+					} catch (Exception $e) {
+						// TODO: Исправить эту конструкцию как-то, чтобы удаление не вызывалось дважды.
+					}
+
+					$this->db->removePostByBanned($data["banned"]);
+				}
+			},
 			fn () => null
 		);
 	}
@@ -176,24 +185,22 @@ class TgPosts extends PostPlugin
 	{
 		$this->db->getDataByBanned($banned)->onCompletion(
 			function (array $data) use ($type) {
-				if (empty($data)) {
-					return;
+				if (!empty($data)) {
+					$this->requests->editPost(
+						$data["post_id"],
+						[
+							"text" => str_replace(
+								["{banned}", "{by}", "{reason}"],
+								[$data["banned"], json_decode($data["data"], true)["by"], json_decode($data["data"], true)["reason"]],
+								$this->posts[$type]["post"]["text"]
+							),
+							"parse_mode" => $this->posts[$type]["post"]["parse_mode"]
+						],
+						$this->posts[$type]["media"]
+					);
+
+					$this->db->removePostByBanned($data["banned"]);
 				}
-
-				$this->requests->editPost(
-					$data["post_id"],
-					[
-						"text" => str_replace(
-							["{banned}", "{by}", "{reason}"],
-							[$data["banned"], json_decode($data["data"], true)["by"], json_decode($data["data"], true)["reason"]],
-							$this->posts[$type]["post"]["text"]
-						),
-						"parse_mode" => $this->posts[$type]["post"]["parse_mode"]
-					],
-					$this->posts[$type]["media"]
-				);
-
-				$this->db->removePostByBanned($data["banned"]);
 			},
 			fn () => null
 		);
@@ -224,7 +231,7 @@ class TgPosts extends PostPlugin
 			$messageId = $callback["message"]["message_id"];
 			$callbackData = $callback["data"];
 
-			if (!str_starts_with($callbackData, "banadetta_")) {
+			if (!str_starts_with($callbackData, "banedetta_")) {
 				return;
 			}
 
@@ -243,10 +250,10 @@ class TgPosts extends PostPlugin
 						return;
 					}
 
-					if ($callbackData === "banadetta_confirm") {
+					if ($callbackData === "banedetta_confirm") {
 						$this->getBansManager()->confirm($data["banned"]);
 						$confirmed = true;
-					} elseif ($callbackData === "banadetta_reject") {
+					} elseif ($callbackData === "banedetta_reject") {
 						$this->getBansManager()->notConfirm($data["banned"]);
 						$confirmed = false;
 					}
